@@ -1,4 +1,3 @@
-
 import java.awt.Choice;
 import java.awt.Color;
 import java.awt.Font;
@@ -19,7 +18,6 @@ public class Signup extends JFrame implements ActionListener {
     Choice c1;
 
     Signup() {
-        
         setLayout(null);
         setBounds(370, 250, 800, 400);
         getContentPane().setBackground(Color.white);
@@ -67,10 +65,10 @@ public class Signup extends JFrame implements ActionListener {
         p1.add(l4);
 
         c1 = new Choice();
-        c1.add("Your fav Cartoon charactor ?");
-        c1.add("Your fav Books ?");
+        c1.add("Your fav Cartoon character?");
+        c1.add("Your fav Books?");
         c1.add("Your Lucky Number?");
-        c1.add("Your Childhood Name ?");
+        c1.add("Your Childhood Name?");
         c1.setBounds(185, 150, 237, 35);
         p1.add(c1);
 
@@ -117,8 +115,8 @@ public class Signup extends JFrame implements ActionListener {
         b2.setForeground(Color.RED);
         b2.addActionListener(this);
         p1.add(b2);
-        setVisible(true);
 
+        setVisible(true);
     }
 
     @Override
@@ -129,34 +127,29 @@ public class Signup extends JFrame implements ActionListener {
             String password = t3.getText();
             String security = c1.getSelectedItem();
             String answer = t4.getText();
-            if (username.isEmpty() || password.isEmpty() || answer.isEmpty() || name.isEmpty()) {
-                JFrame f1=new JFrame();
-                JOptionPane.showMessageDialog(f1,"Please make sure all fields are filled in","Warning", JOptionPane.WARNING_MESSAGE);
 
+            if (username.isEmpty() || password.isEmpty() || answer.isEmpty() || name.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Please fill in all fields", "Warning", JOptionPane.WARNING_MESSAGE);
             } else {
-                String query = "insert into account values ('" + username + "', '" + name + "','" + password + "','"
+                String query = "INSERT INTO account VALUES ('" + username + "', '" + name + "','" + password + "','"
                         + security + "','" + answer + "')";
-                // System.out.println(username);
                 try {
                     Conns c = new Conns();
                     c.stmt.executeUpdate(query);
                     JOptionPane.showMessageDialog(null, "Account Created Successfully");
                     this.setVisible(false);
                     new Login().setVisible(true);
-
                 } catch (Exception e) {
-
+                    e.printStackTrace();
                 }
             }
-
         } else if (ae.getSource() == b2) {
             new Login().setVisible(true);
             this.setVisible(false);
-
         }
-
     }
 
-   
-
+    public static void main(String[] args) {
+        new Signup();
+    }
 }
